@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
-const EditableRow = ({
-  editFormData,
-  handleEditFormChange,
-  handleCancelClick,
-}) => {
+const EditableRow = ({ setEditContactId, editFormData, setEditFormData }) => {
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
+
+    setEditFormData({
+      ...editFormData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleCancelClick = () => {
+    setEditContactId(null);
+  };
+
   return (
     <tr>
       <td>
