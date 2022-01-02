@@ -40,38 +40,44 @@ const Table = ({ contacts, setContacts, editContactId, setEditContactId }) => {
   };
 
   return (
-    <form onSubmit={handleEditFormSubmit}>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contacts.map((contact) => {
-            return editContactId === contact.id ? (
-              <EditableRow
-                key={contact.id}
-                editFormData={editFormData}
-                setEditFormData={setEditFormData}
-                contactInfo={contact}
-              />
-            ) : (
-              <ReadOnlyRow
-                key={contact.id}
-                contact={contact}
-                handleEditClick={handleEditClick}
-                handleDeleteClick={handleDeleteClick}
-              />
-            );
-          })}
-        </tbody>
-      </table>
-    </form>
+    <div className="table-container">
+      <div className="table-title-wrapper">
+        <h1>Empleados</h1>
+      </div>
+      <form onSubmit={handleEditFormSubmit}>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {contacts.map((contact) => {
+              return editContactId === contact.id ? (
+                <EditableRow
+                  key={contact.id}
+                  editFormData={editFormData}
+                  setEditFormData={setEditFormData}
+                  setEditContactId={setEditContactId}
+                  contactInfo={contact}
+                />
+              ) : (
+                <ReadOnlyRow
+                  key={contact.id}
+                  contact={contact}
+                  handleEditClick={handleEditClick}
+                  handleDeleteClick={handleDeleteClick}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </form>
+    </div>
   );
 };
 
