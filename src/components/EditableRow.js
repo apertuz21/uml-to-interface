@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 const EditableRow = ({
-  setEditContactId,
+  setEntityInstanceID,
   editFormData,
   setEditFormData,
-  contact,
+  entity,
 }) => {
   const handleEditFormChange = (event) => {
     event.preventDefault();
@@ -16,12 +16,12 @@ const EditableRow = ({
   };
 
   const handleCancelClick = () => {
-    setEditContactId(null);
+    setEntityInstanceID(null);
   };
 
   return (
     <tr>
-      {Object.keys(contact).map((key) =>
+      {Object.keys(entity).map((key) =>
         key !== "id" && key !== "entityName" ? (
           <td>
             <input

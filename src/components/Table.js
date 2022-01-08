@@ -3,28 +3,34 @@ import React, { useState } from "react";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow.js";
 
-const Table = ({ name, methods, attributes, contacts, setContacts }) => {
-  const [editFormData, setEditFormData] = useState({});
-  const [editContactId, setEditContactId] = useState(null);
-  const [editEntityName, setEditEntityName] = useState(null);
-
+const Table = ({
+  name,
+  attributes,
+  entities,
+  entityInstanceID,
+  setEntityInstanceID,
+  editFormData,
+  handleEditFormSubmit,
+  setEditFormData,
+  handleEditClick,
+  handleDeleteClick,
+}) => {
   const renderRow = () => {
-    if (Object.keys(contacts).length > 0) {
-      return contacts.hasOwnProperty(name) ? (
-        contacts[name].map((contact) => {
-          return editContactId === contact.id ? (
+    if (Object.keys(entities).length > 0) {
+      return entities.hasOwnProperty(name) ? (
+        entities[name].map((entity) => {
+          return entityInstanceID === entity.id ? (
             <EditableRow
-              key={contact.id}
-              attributes={attributes}
+              key={entity.id}
               editFormData={editFormData}
               setEditFormData={setEditFormData}
-              setEditContactId={setEditContactId}
-              contact={contact}
+              setEntityInstanceID={setEntityInstanceID}
+              entity={entity}
             />
           ) : (
             <ReadOnlyRow
-              key={contact.id}
-              contact={contact}
+              key={entity.id}
+              entity={entity}
               handleEditClick={handleEditClick}
               handleDeleteClick={handleDeleteClick}
             />
@@ -34,42 +40,6 @@ const Table = ({ name, methods, attributes, contacts, setContacts }) => {
         <></>
       );
     }
-  };
-
-  const handleEditFormSubmit = (event) => {
-    event.preventDefault();
-
-    const newContacts = { ...contacts };
-
-    const index = newContacts[name].findIndex(
-      (contact) => contact.id === editContactId
-    );
-
-    newContacts[name][index] = { id: editContactId, ...editFormData };
-
-    setContacts(newContacts);
-
-    setEditContactId(null);
-  };
-
-  const handleEditClick = (event, contact) => {
-    event.preventDefault();
-
-    console.log(contact, "oli");
-
-    setEditFormData(contact);
-    setEditContactId(contact.id);
-    setEditEntityName(contact.entityName);
-  };
-
-  const handleDeleteClick = (id) => {
-    const newContacts = { ...contacts };
-
-    const index = contacts[name].findIndex((c) => c.id === id);
-
-    newContacts[name].splice(index, 1);
-
-    setContacts(newContacts);
   };
 
   return (
