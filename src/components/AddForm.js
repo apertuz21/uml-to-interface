@@ -2,14 +2,8 @@ import React, { useState } from "react";
 
 import { nanoid } from "nanoid";
 
-const AddForm = ({ contacts, setContacts }) => {
-  const [addFormData, setAddFormData] = useState({
-    id: "",
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
-  });
+const AddForm = ({ contacts, setContacts, entityName, attributes }) => {
+  const [addFormData, setAddFormData] = useState({});
 
   const handleAddFormChange = (event) => {
     event.preventDefault();
@@ -20,22 +14,50 @@ const AddForm = ({ contacts, setContacts }) => {
     });
   };
 
+  const clearData = () => {
+    const clearObj = {};
+    const keys = Object.keys(addFormData);
+
+    keys.forEach((key) => (clearObj[key] = ""));
+
+    setAddFormData(clearObj);
+  };
+
   const handleAddFormSubmit = (event) => {
     event.preventDefault();
 
-    const newContacts = [...contacts, { id: nanoid(), ...addFormData }];
-    setContacts(newContacts);
+    if (contacts.hasOwnProperty(entityName)) {
+      setContacts({
+        ...contacts,
+        [entityName]: [
+          ...contacts[entityName],
+          { id: nanoid(), entityName: entityName, ...addFormData },
+        ],
+      });
+    } else {
+      setContacts({
+        ...contacts,
+        [entityName]: [
+          { id: nanoid(), entityName: entityName, ...addFormData },
+        ],
+      });
+    }
 
-    setAddFormData({
-      fullName: "",
-      address: "",
-      phoneNumber: "",
-      email: "",
-    });
+    clearData();
   };
   return (
     <form onSubmit={handleAddFormSubmit}>
-      <input
+      {attributes.map((attribute) => (
+        <input
+          type="text"
+          name={attribute}
+          value={addFormData[attribute]}
+          required="required"
+          placeholder={`Ingresa ${attribute}`}
+          onChange={handleAddFormChange}
+        />
+      ))}
+      {/* <input
         type="text"
         name="fullName"
         value={addFormData.fullName}
@@ -66,7 +88,7 @@ const AddForm = ({ contacts, setContacts }) => {
         required="required"
         placeholder="Enter an email..."
         onChange={handleAddFormChange}
-      />
+      /> */}
       <button type="submit">Add</button>
     </form>
   );

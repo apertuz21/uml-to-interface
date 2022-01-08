@@ -3,17 +3,49 @@ import React, { useState } from "react";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow.js";
 
-const Table = ({ contacts, setContacts, editContactId, setEditContactId }) => {
-  const [editFormData, setEditFormData] = useState("");
+const Table = ({ name, methods, attributes, contacts, setContacts }) => {
+  const [editFormData, setEditFormData] = useState({});
+  const [editContactId, setEditContactId] = useState(null);
+  const [editEntityName, setEditEntityName] = useState(null);
+
+  const renderRow = () => {
+    if (Object.keys(contacts).length > 0) {
+      return contacts.hasOwnProperty(name) ? (
+        contacts[name].map((contact) => {
+          return editContactId === contact.id ? (
+            <EditableRow
+              key={contact.id}
+              attributes={attributes}
+              editFormData={editFormData}
+              setEditFormData={setEditFormData}
+              setEditContactId={setEditContactId}
+              contact={contact}
+            />
+          ) : (
+            <ReadOnlyRow
+              key={contact.id}
+              contact={contact}
+              handleEditClick={handleEditClick}
+              handleDeleteClick={handleDeleteClick}
+            />
+          );
+        })
+      ) : (
+        <></>
+      );
+    }
+  };
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
 
-    const newContacts = [...contacts];
+    const newContacts = { ...contacts };
 
-    const index = contacts.findIndex((contact) => contact.id === editContactId);
+    const index = newContacts[name].findIndex(
+      (contact) => contact.id === editContactId
+    );
 
-    newContacts[index] = { id: editContactId, ...editFormData };
+    newContacts[name][index] = { id: editContactId, ...editFormData };
 
     setContacts(newContacts);
 
@@ -27,14 +59,15 @@ const Table = ({ contacts, setContacts, editContactId, setEditContactId }) => {
 
     setEditFormData(contact);
     setEditContactId(contact.id);
+    setEditEntityName(contact.entityName);
   };
 
   const handleDeleteClick = (id) => {
-    const newContacts = [...contacts];
+    const newContacts = { ...contacts };
 
-    const index = contacts.findIndex((c) => c.id === id);
+    const index = contacts[name].findIndex((c) => c.id === id);
 
-    newContacts.splice(index, 1);
+    newContacts[name].splice(index, 1);
 
     setContacts(newContacts);
   };
@@ -42,39 +75,19 @@ const Table = ({ contacts, setContacts, editContactId, setEditContactId }) => {
   return (
     <div className="table-container">
       <div className="table-title-wrapper">
-        <h1>Empleados</h1>
+        <h1>{name}</h1>
       </div>
       <form onSubmit={handleEditFormSubmit}>
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Phone Number</th>
-              <th>Email</th>
+              {attributes.map((attribute) => (
+                <th>{attribute}</th>
+              ))}
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            {contacts.map((contact) => {
-              return editContactId === contact.id ? (
-                <EditableRow
-                  key={contact.id}
-                  editFormData={editFormData}
-                  setEditFormData={setEditFormData}
-                  setEditContactId={setEditContactId}
-                  contactInfo={contact}
-                />
-              ) : (
-                <ReadOnlyRow
-                  key={contact.id}
-                  contact={contact}
-                  handleEditClick={handleEditClick}
-                  handleDeleteClick={handleDeleteClick}
-                />
-              );
-            })}
-          </tbody>
+          <tbody>{renderRow()}</tbody>
         </table>
       </form>
     </div>
