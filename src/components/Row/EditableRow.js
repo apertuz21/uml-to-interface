@@ -23,7 +23,7 @@ const EditableRow = ({
   return (
     <tr>
       {Object.keys(entity).map((key) =>
-        key !== "id" && key !== "entityName" ? (
+        key !== "entityName" ? (
           <td>
             <input
               type="text"

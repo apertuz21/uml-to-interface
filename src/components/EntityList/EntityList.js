@@ -32,6 +32,7 @@ const EntityList = ({ data }) => {
           const formatedAttributes = formatProperties(attributes);
           const formatedMethods = formatProperties(methods);
           console.log(formatedMethods, "formatedMethods");
+          console.log(formatedAttributes, "formatedAttributes");
           return (
             <EntityItemContainer>
               <EntityItem

@@ -13,11 +13,7 @@ const ReadOnlyRow = ({
   return (
     <tr>
       {Object.keys(entity).map((key) =>
-        key !== "id" && key !== "entityName" ? (
-          <td key={key}>{entity[key]}</td>
-        ) : (
-          <></>
-        )
+        key !== "entityName" ? <td key={key}>{entity[key]}</td> : <></>
       )}
       <td>
         {methods.find((method) => method.toLowerCase() === "edit()") ? (

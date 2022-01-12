@@ -7,6 +7,8 @@ import { Button } from "../../styles/common";
 const AddForm = ({ entities, setEntities, entityName, attributes }) => {
   const [addFormData, setAddFormData] = useState({});
 
+  console.log(addFormData, "addFormData");
+
   const clearData = () => {
     const clearObj = {};
     const keys = Object.keys(addFormData);
@@ -29,20 +31,33 @@ const AddForm = ({ entities, setEntities, entityName, attributes }) => {
     event.preventDefault();
 
     if (entities.hasOwnProperty(entityName)) {
-      setEntities({
-        ...entities,
-        [entityName]: [
-          ...entities[entityName],
-          { id: nanoid(), entityName: entityName, ...addFormData },
-        ],
-      });
+      addFormData.hasOwnProperty("id" || "ID" || "Id")
+        ? setEntities({
+            ...entities,
+            [entityName]: [
+              ...entities[entityName],
+              { entityName: entityName, ...addFormData },
+            ],
+          })
+        : setEntities({
+            ...entities,
+            [entityName]: [
+              ...entities[entityName],
+              { id: nanoid(), entityName: entityName, ...addFormData },
+            ],
+          });
     } else {
-      setEntities({
-        ...entities,
-        [entityName]: [
-          { id: nanoid(), entityName: entityName, ...addFormData },
-        ],
-      });
+      addFormData.hasOwnProperty("id" || "ID" || "Id")
+        ? setEntities({
+            ...entities,
+            [entityName]: [{ entityName: entityName, ...addFormData }],
+          })
+        : setEntities({
+            ...entities,
+            [entityName]: [
+              { id: nanoid(), entityName: entityName, ...addFormData },
+            ],
+          });
     }
 
     clearData();
