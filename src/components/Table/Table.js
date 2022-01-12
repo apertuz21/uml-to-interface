@@ -23,6 +23,7 @@ const Table = ({
   setEditFormData,
   handleEditClick,
   handleDeleteClick,
+  methods,
 }) => {
   const renderRow = () => {
     if (Object.keys(entities).length > 0) {
@@ -42,6 +43,7 @@ const Table = ({
               entity={entity}
               handleEditClick={handleEditClick}
               handleDeleteClick={handleDeleteClick}
+              methods={methods}
             />
           );
         })

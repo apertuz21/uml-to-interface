@@ -44,6 +44,7 @@ const EntityItem = ({ name, methods, attributes, entities, setEntities }) => {
       setEditFormData={setEditFormData}
       handleEditClick={handleEditClick}
       handleDeleteClick={handleDeleteClick}
+      methods={methods}
     />
   );
 };

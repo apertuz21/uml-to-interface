@@ -9,16 +9,16 @@ import { EntityItemContainer, Text, TextWrapper, Message } from "./styles";
 const EntityList = ({ data }) => {
   const [entities, setEntities] = useState({});
 
-  console.log(diagram, "diagram");
-  console.log(data, "data");
+  //console.log(diagram, "diagram");
+  //console.log(data, "data");
 
   //console.log(entities, "contacts");
 
-  const formatAttributes = (attributes) => {
-    const attributesArr = attributes.split("\n");
-    const index = attributesArr.indexOf("");
-    if (index > -1) attributesArr.splice(index, 1);
-    return attributesArr;
+  const formatProperties = (properties) => {
+    const propertiesArr = properties.split("\n"); // [name, age, data]
+    const index = propertiesArr.indexOf("");
+    if (index > -1) propertiesArr.splice(index, 1);
+    return propertiesArr;
   };
 
   return (
@@ -29,23 +29,31 @@ const EntityList = ({ data }) => {
 
       {data ? (
         data.nodes.map(({ name, methods, attributes }) => {
-          const formatedAttributes = formatAttributes(attributes);
+          const formatedAttributes = formatProperties(attributes);
+          const formatedMethods = formatProperties(methods);
+          console.log(formatedMethods, "formatedMethods");
           return (
             <EntityItemContainer>
               <EntityItem
                 name={name}
-                methods={methods}
+                methods={formatedMethods}
                 attributes={formatedAttributes}
                 entities={entities}
                 setEntities={setEntities}
               />
 
-              <AddForm
-                entities={entities}
-                setEntities={setEntities}
-                attributes={formatedAttributes}
-                entityName={name}
-              />
+              {formatedMethods.find(
+                (method) => method.toLowerCase() === "add()"
+              ) ? (
+                <AddForm
+                  entities={entities}
+                  setEntities={setEntities}
+                  attributes={formatedAttributes}
+                  entityName={name}
+                />
+              ) : (
+                <></>
+              )}
             </EntityItemContainer>
           );
         })
