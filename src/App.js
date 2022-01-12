@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 
-import "./App.css";
-
-import EntityList from "./components/EntityList";
+import EntityList from "./components/EntityList/EntityList";
+import Home from "./pages/Home";
+import { GlobalStyle } from "./styles/globalStyles";
 
 const App = () => {
-  return <EntityList />;
+  return (
+    <React.Fragment>
+      <GlobalStyle />
+      <Home />
+    </React.Fragment>
+  );
 };
 
 export default App;

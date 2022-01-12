@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "../../styles/common";
 
 const EditableRow = ({
   setEntityInstanceID,
@@ -38,10 +39,12 @@ const EditableRow = ({
         )
       )}
       <td>
-        <button type="submit">Save</button>
-        <button type="button" onClick={handleCancelClick}>
-          Cancel
-        </button>
+        <Button marginRight type="submit">
+          Guardar
+        </Button>
+        <Button type="button" color="red" onClick={handleCancelClick}>
+          Cancelar
+        </Button>
       </td>
     </tr>
   );

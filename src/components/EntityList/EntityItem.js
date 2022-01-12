@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Table from "./Table";
+import Table from "../Table/Table";
 
 const EntityItem = ({ name, methods, attributes, entities, setEntities }) => {
   const [editFormData, setEditFormData] = useState({});

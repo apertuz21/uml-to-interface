@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import { nanoid } from "nanoid";
+import { Form, FormWrapper, InputWrapper, Label, Title } from "./styles";
+import { Button } from "../../styles/common";
 
 const AddForm = ({ entities, setEntities, entityName, attributes }) => {
   const [addFormData, setAddFormData] = useState({});
@@ -46,19 +48,27 @@ const AddForm = ({ entities, setEntities, entityName, attributes }) => {
     clearData();
   };
   return (
-    <form onSubmit={handleAddFormSubmit}>
-      {attributes.map((attribute) => (
-        <input
-          type="text"
-          name={attribute}
-          value={addFormData[attribute]}
-          required="required"
-          placeholder={`Ingresa ${attribute}`}
-          onChange={handleAddFormChange}
-        />
-      ))}
-      <button type="submit">Add</button>
-    </form>
+    <FormWrapper>
+      {/* <Title>{`Agregar ${entityName}`}</Title> */}
+      <Form onSubmit={handleAddFormSubmit}>
+        {attributes.map((attribute) => (
+          <InputWrapper>
+            <Label>{attribute}</Label>
+            <input
+              type="text"
+              name={attribute}
+              value={addFormData[attribute]}
+              required="required"
+              placeholder={`Ingresa ${attribute}`}
+              onChange={handleAddFormChange}
+            />
+          </InputWrapper>
+        ))}
+      </Form>
+      <Button type="submit" onClick={handleAddFormSubmit}>
+        Agregar
+      </Button>
+    </FormWrapper>
   );
 };
 

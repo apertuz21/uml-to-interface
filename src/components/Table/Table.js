@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 
-import ReadOnlyRow from "./ReadOnlyRow";
-import EditableRow from "./EditableRow.js";
+import ReadOnlyRow from "../Row/ReadOnlyRow";
+import EditableRow from "../Row/EditableRow.js";
+import {
+  Row,
+  TableContainer,
+  TableUI,
+  TableWrapper,
+  THead,
+  Title,
+  TitleWrapper,
+} from "./styles";
 
 const Table = ({
   name,
@@ -43,24 +52,26 @@ const Table = ({
   };
 
   return (
-    <div className="table-container">
-      <div className="table-title-wrapper">
-        <h1>{name}</h1>
-      </div>
+    <TableContainer className="table-container">
+      <TitleWrapper className="table-title-wrapper">
+        <Title>{name}</Title>
+      </TitleWrapper>
       <form onSubmit={handleEditFormSubmit}>
-        <table>
-          <thead>
-            <tr>
-              {attributes.map((attribute) => (
-                <th>{attribute}</th>
-              ))}
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>{renderRow()}</tbody>
-        </table>
+        <TableWrapper>
+          <table>
+            <THead>
+              <tr>
+                {attributes.map((attribute) => (
+                  <th>{attribute}</th>
+                ))}
+                <th>Actions</th>
+              </tr>
+            </THead>
+            <tbody>{renderRow()}</tbody>
+          </table>
+        </TableWrapper>
       </form>
-    </div>
+    </TableContainer>
   );
 };
 
