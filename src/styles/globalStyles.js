@@ -45,16 +45,13 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 18px;
     }
 
-    th {
-        background-color: "#fff";
-    }
 
     tr {
         border-bottom: 1px solid #e9e9e9;
     }
 
     td {
-        background-color: "#fff";
+        background-color: #fff;
     }
 
     form {

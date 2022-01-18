@@ -11,12 +11,13 @@ import {
   InputFileWrapper,
 } from "../components/UploadFile/styles";
 import { Button } from "../styles/common";
+import { BoxText, TextDanger } from "./styles";
 
 const Home = () => {
   const [file, setFile] = useState(null);
   const [json, setJSON] = useState(null);
 
-  //console.log(file, "archivo");
+  console.log(file, "archivo");
 
   const onFileChange = (e) => {
     // Update the state
@@ -29,17 +30,37 @@ const Home = () => {
     };
   };
 
+  const validateFileName = () => {
+    if (file) {
+      if (file.name.match(".json$", "i")) {
+        return <Text>{file.name}</Text>;
+      } else {
+        return (
+          <TextDanger>
+            No es un archivo .json. Porfavor vuelve a intentarlo con un archivo
+            .json
+          </TextDanger>
+        );
+      }
+    } else {
+      return <Text>Sube un archivo .json</Text>;
+    }
+  };
+
   return (
     <Layout>
-      <Box />
+      <Box>
+        <BoxText>Crea interfaces desde diagramas UML fácil y rápido</BoxText>
+        <Button>Comienza ya</Button>
+      </Box>
       <Wrapper>
-        <Text>{file?.name || "Sube un archivo .json"}</Text>
+        {validateFileName()}
         <InputFileWrapper>
           <InputFile type="file" onChange={onFileChange} />
           <p>Subir archivo</p>
         </InputFileWrapper>
       </Wrapper>
-      <EntityList data={json} />
+      {file?.name.match(".json$", "i") && <EntityList data={json} />}
     </Layout>
   );
 };

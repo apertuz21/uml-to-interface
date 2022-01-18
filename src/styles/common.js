@@ -20,4 +20,10 @@ export const Button = styled.button`
   transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
+  :hover,
+  :active,
+  :focus {
+    background: ${({ color }) => (color ? "#cd0606" : "#020142")};
+    cursor: pointer;
+  }
 `;

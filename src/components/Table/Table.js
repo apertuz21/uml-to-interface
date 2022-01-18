@@ -63,9 +63,10 @@ const Table = ({
           <table>
             <THead>
               <tr>
-                {attributes.map((attribute) => (
-                  <th>{attribute}</th>
-                ))}
+                <th>ID</th>
+                {attributes.map((attribute) =>
+                  attribute.toLowerCase() !== "id" ? <th>{attribute}</th> : null
+                )}
                 <th>Actions</th>
               </tr>
             </THead>

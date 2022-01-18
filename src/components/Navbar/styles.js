@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "wouter";
 
 export const Nav = styled.nav`
   background: white;
@@ -30,7 +31,7 @@ export const NavbarContainer = styled.div`
   }
 `;
 
-export const NavLogo = styled.a`
+export const NavLogo = styled(Link)`
   color: black;
   justify-self: flex-start;
   cursor: pointer;
@@ -39,6 +40,8 @@ export const NavLogo = styled.a`
   font-family: Quicksand, serif;
   display: flex;
   align-items: center;
+  font-weight: 700;
+  color: #070494;
 `;
 
 export const BoldSpan = styled.span`
@@ -110,7 +113,7 @@ export const NavItemBtn = styled.li`
   }
 `;
 
-export const NavLinks = styled.a`
+export const NavLinks = styled(Link)`
   color: #070494;
   display: flex;
   cursor: pointer;
@@ -131,7 +134,7 @@ export const NavLinks = styled.a`
   }
 `;
 
-export const NavBtnLink = styled.a`
+export const NavBtnLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;

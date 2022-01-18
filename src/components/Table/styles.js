@@ -31,5 +31,6 @@ export const TableUI = styled.table`
 `;
 
 export const THead = styled.thead`
+  width: 100%;
   background-color: #e1e8f2;
 `;

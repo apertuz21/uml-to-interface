@@ -33,7 +33,9 @@ const EntityList = ({ data }) => {
           const formatedMethods = formatProperties(methods);
           console.log(formatedMethods, "formatedMethods");
           console.log(formatedAttributes, "formatedAttributes");
-          return (
+          return formatedMethods.find(
+            (method) => method.toLowerCase() === "read()"
+          ) ? (
             <EntityItemContainer>
               <EntityItem
                 name={name}
@@ -56,6 +58,10 @@ const EntityList = ({ data }) => {
                 <></>
               )}
             </EntityItemContainer>
+          ) : (
+            <Message>
+              <p>Esta tabla no tiene la propiedad read()</p>
+            </Message>
           );
         })
       ) : (

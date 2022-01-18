@@ -6,8 +6,9 @@ export const BoxContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    text-align: ${({ txtAlgn }) => txtAlgn || "center"};
     margin 0 auto;
+    margin-bottom: ${({ marginBottom }) => marginBottom || 0};
     padding: 100px;
     background-color: #fff;
     border-radius: 15px;
